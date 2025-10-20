@@ -12,17 +12,21 @@ def test_notepad_index():
     try:
         host = get_host_for_selenium_testing()
 
-        # Open the index page
-        driver.get(f'{host}/notepad')
+        driver.get("http://127.0.0.1:5000/notepad")
+        driver.set_window_size(1011, 833)
+        driver.find_element(By.LINK_TEXT, "Edit").click()
+        driver.find_element(By.ID, "title").click()
+        driver.find_element(By.ID, "title").send_keys("Practica EGC Selenium")
+        driver.find_element(By.ID, "body").click()
+        driver.find_element(By.ID, "body").click()
+        element = driver.find_element(By.ID, "body")
+        actions = ActionChains(driver)
+        actions.double_click(element).perform()
+        driver.find_element(By.ID, "body").click()
+        driver.find_element(By.ID, "body").send_keys("Prueba selenium")
+        driver.find_element(By.ID, "submit").click()
 
-        # Wait a little while to make sure the page has loaded completely
-        time.sleep(4)
-
-        try:
-
-            pass
-
-        except NoSuchElementException:
+    except NoSuchElementException:
             raise AssertionError('Test failed!')
 
     finally:
